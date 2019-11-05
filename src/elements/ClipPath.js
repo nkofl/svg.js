@@ -40,7 +40,15 @@ registerMethods({
         : this.parent().clip().add(element)
 
       // apply mask
-      return this.attr('clip-path', 'url("#' + clipper.id() + '")')
+      var base = ''
+      var baseUrl
+      if (document && document.querySelector
+        && window && window.location && window.location.href
+        && (baseUrl = (document.querySelector('base') || {}).href)
+        && baseUrl !== window.location.href.split('?')[0]) {
+        base = window.location.pathname
+      }
+      return this.attr('clip-path', 'url("' + base + '#' + clipper.id() + '")')
     },
 
     // Unclip element

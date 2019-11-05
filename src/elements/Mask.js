@@ -39,8 +39,17 @@ registerMethods({
         ? element
         : this.parent().mask().add(element)
 
+      var base = ''
+      var baseUrl
+      if (document && document.querySelector
+        && window && window.location && window.location.href
+        && (baseUrl = (document.querySelector('base') || {}).href)
+        && baseUrl !== window.location.href.split('?')[0]) {
+        base = window.location.pathname
+      }
+
       // apply mask
-      return this.attr('mask', 'url("#' + masker.id() + '")')
+      return this.attr('mask', 'url("' + base + '#' + masker.id() + '")')
     },
 
     // Unmask element

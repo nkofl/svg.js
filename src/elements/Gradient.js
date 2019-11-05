@@ -39,7 +39,15 @@ export default class Gradient extends Container {
 
   // Return the fill id
   url () {
-    return 'url(#' + this.id() + ')'
+    var base = ''
+    var baseUrl
+    if (document && document.querySelector
+      && window && window.location && window.location.href
+      && (baseUrl = (document.querySelector('base') || {}).href)
+      && baseUrl !== window.location.href.split('?')[0]) {
+      base = window.location.pathname
+    }
+    return 'url(' + base + '#' + this.id() + ')'
   }
 
   // Alias string convertion to fill
